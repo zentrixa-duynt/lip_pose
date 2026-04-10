@@ -1,307 +1,330 @@
 <!doctype html>
 <html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
-    />
-    <title>Rumi Face Puzzle - Responsive Fixed</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
-    <style>
-      :root {
-        --bg-color: #000;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Rumi Face Puzzle - Responsive Fixed</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  <style>
+    :root {
+      --bg-color: #000;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: var(--bg-color);
+      /* Sử dụng font chữ mới */
+      font-family: 'Fredoka', "Segoe UI", sans-serif;
+      overflow: hidden;
+      touch-action: manipulation;
+    }
+
+    #ad-container {
+      width: 100vw;
+      height: 100vh;
+      max-width: 450px;
+      max-height: 800px;
+      background-color: black;
+      position: relative;
+      overflow: hidden;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+
+    #face-base {
+      width: 100%;
+      height: auto;
+      position: absolute;
+      /* Căn giữa tuyệt đối */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .part {
+      position: absolute;
+      z-index: 10;
+      width: auto;
+      display: none;
+      pointer-events: none;
+      transform: translateX(-50%);
+      height: auto !important;
+      max-width: 100%;
+    }
+
+    #part-0 {
+      width: 10.74% !important;
+    }
+
+    #part-1 {
+      width: 10.18% !important;
+    }
+
+    #part-2 {
+      width: 5.86% !important;
+    }
+
+    #part-3 {
+      width: 19.94% !important;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      text-align: center;
+    }
+
+    /* Làm đẹp các tiêu đề */
+    #start-screen h1 {
+      font-size: 3rem;
+      margin: 0 0 10px 0;
+      color: #fff;
+      text-shadow: 3px 3px 0px #ff477e, 6px 6px 0px rgba(0, 0, 0, 0.5);
+      letter-spacing: 2px;
+    }
+
+    #start-screen p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      color: #e0e0e0;
+    }
+
+    /* Hoạt ảnh to nhỏ (Pulse Animation) */
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
       }
 
-      body {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: var(--bg-color);
-        /* Sử dụng font chữ mới */
-        font-family: 'Fredoka', "Segoe UI", sans-serif;
-        overflow: hidden;
-        touch-action: manipulation;
+      50% {
+        transform: scale(1.15);
       }
 
-      #ad-container {
-        width: 100vw;
-        height: 100vh;
-        max-width: 450px;
-        max-height: 800px;
-        background-color: black;
-        position: relative;
-        overflow: hidden;
-        padding-top: env(safe-area-inset-top);
-        padding-bottom: env(safe-area-inset-bottom);
-        padding-left: env(safe-area-inset-left);
-        padding-right: env(safe-area-inset-right);
+      100% {
+        transform: scale(1);
       }
+    }
 
-      #face-base {
-  width: 100%;
-  height: auto;
-  position: absolute;
-  /* Căn giữa tuyệt đối */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  pointer-events: none;
-}
+    .tap-to-play-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: pulse 1.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-      .part {
-        position: absolute;
-        z-index: 10;
-        width: auto;
-        display: none;
-        pointer-events: none;
-        transform: translateX(-50%);
-        height: auto !important;
-        max-width: 100%;
-      }
+    .tap-text {
+      font-weight: 700;
+      color: #ff477e;
+      font-size: 1.5rem;
+      margin-top: -10px;
+      text-shadow: 0px 4px 10px rgba(255, 71, 126, 0.4);
+    }
 
-      #part-0 { width: 10.74% !important; }
-      #part-1 { width: 10.18% !important; }
-      #part-2 { width: 5.86% !important; }
-      #part-3 { width: 19.94% !important; }
+    /* Chỉnh sửa màn hình kết thúc để nhìn xuyên thấu */
+    #end-screen {
+      background: rgba(0, 0, 0, 0.2);
+      /* Nền mờ nhẹ, đủ để đọc chữ nhưng vẫn thấy mặt */
+      justify-content: space-between;
+      /* Đẩy chữ lên trên, nút xuống dưới */
+      padding: 80px 20px 60px 20px;
+      box-sizing: border-box;
+    }
 
-      .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.85);
-        color: white;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 100;
-        text-align: center;
-      }
+    #end-screen h2 {
+      font-size: 2.8rem;
+      margin: 0;
+      color: #fff;
+      text-shadow: 0 0 15px #ff477e, 0 0 30px #ff477e;
+      animation: pulse 2s infinite;
+    }
 
-      /* Làm đẹp các tiêu đề */
-      #start-screen h1 {
-        font-size: 3rem;
-        margin: 0 0 10px 0;
-        color: #fff;
-        text-shadow: 3px 3px 0px #ff477e, 6px 6px 0px rgba(0,0,0,0.5);
-        letter-spacing: 2px;
-      }
+    .btn-cta {
+      padding: 15px 45px;
+      background: linear-gradient(135deg, #ff477e, #ff749a);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: 'Fredoka', sans-serif;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(255, 71, 126, 0.6);
+      transition: transform 0.1s, box-shadow 0.1s;
+      z-index: 102;
+      /* Nằm trên pháo hoa để click được dễ dàng */
+    }
 
-      #start-screen p {
-        font-size: 1.2rem;
-        margin-bottom: 30px;
-        color: #e0e0e0;
-      }
+    .btn-cta:active {
+      transform: scale(0.95);
+      box-shadow: 0 4px 15px rgba(255, 71, 126, 0.4);
+    }
 
-      /* Hoạt ảnh to nhỏ (Pulse Animation) */
-      @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.15); }
-        100% { transform: scale(1); }
-      }
+    .guide-text {
+      position: absolute;
+      top: 40px;
+      width: 100%;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: #ff477e;
+      z-index: 50;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+    }
 
-      .tap-to-play-group {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        animation: pulse 1.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
-      }
+    #start-lottie {
+      width: 150px;
+      height: 150px;
+      cursor: pointer;
+    }
 
-      .tap-text {
-        font-weight: 700;
-        color: #ff477e;
-        font-size: 1.5rem;
-        margin-top: -10px;
-        text-shadow: 0px 4px 10px rgba(255, 71, 126, 0.4);
-      }
+    #fireworks-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 101;
+    }
+  </style>
+</head>
 
-      /* Chỉnh sửa màn hình kết thúc để nhìn xuyên thấu */
-      #end-screen {
-        background: rgba(0, 0, 0, 0.2); /* Nền mờ nhẹ, đủ để đọc chữ nhưng vẫn thấy mặt */
-        justify-content: space-between; /* Đẩy chữ lên trên, nút xuống dưới */
-        padding: 80px 20px 60px 20px;
-        box-sizing: border-box;
-      }
+<body>
+  <div id="ad-container">
+    <div id="guide" class="guide-text">CHẠM ĐỂ BẮT ĐẦU</div>
 
-      #end-screen h2 {
-        font-size: 2.8rem;
-        margin: 0;
-        color: #fff;
-        text-shadow: 0 0 15px #ff477e, 0 0 30px #ff477e;
-        animation: pulse 2s infinite;
-      }
+    <div id="start-screen" class="overlay">
+      <h1>FACE PUZZLE</h1>
+      <p>Ghép khuôn mặt Rumi hoàn hảo!</p>
 
-      .btn-cta {
-        padding: 15px 45px;
-        background: linear-gradient(135deg, #ff477e, #ff749a);
-        color: white;
-        border: none;
-        border-radius: 50px;
-        font-size: 1.4rem;
-        font-weight: 700;
-        font-family: 'Fredoka', sans-serif;
-        cursor: pointer;
-        box-shadow: 0 8px 25px rgba(255, 71, 126, 0.6);
-        transition: transform 0.1s, box-shadow 0.1s;
-        z-index: 102; /* Nằm trên pháo hoa để click được dễ dàng */
-      }
-
-      .btn-cta:active {
-        transform: scale(0.95);
-        box-shadow: 0 4px 15px rgba(255, 71, 126, 0.4);
-      }
-
-      .guide-text {
-        position: absolute;
-        top: 40px;
-        width: 100%;
-        text-align: center;
-        font-weight: 700;
-        font-size: 1.4rem;
-        color: #ff477e;
-        z-index: 50;
-        text-shadow: 0 2px 5px rgba(0,0,0,0.8);
-      }
-
-      #start-lottie {
-        width: 150px;
-        height: 150px;
-        cursor: pointer;
-      }
-
-      #fireworks-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 101;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="ad-container">
-      <div id="guide" class="guide-text">CHẠM ĐỂ BẮT ĐẦU</div>
-
-      <div id="start-screen" class="overlay">
-        <h1>FACE PUZZLE</h1>
-        <p>Ghép khuôn mặt Rumi hoàn hảo!</p>
-        
-        <div class="tap-to-play-group">
-          <div id="start-lottie"></div>
-          <p class="tap-text">CHẠM ĐỂ CHƠI</p>
-        </div>
+      <div class="tap-to-play-group">
+        <div id="start-lottie"></div>
+        <p class="tap-text">CHẠM ĐỂ CHƠI</p>
       </div>
-
-      <div id="end-screen" class="overlay" style="display: none">
-        <div id="fireworks-container"></div>
-        <h2>XUẤT SẮC! ✨</h2>
-        <button class="btn-cta" onclick="location.reload()">CHƠI LẠI</button>
-      </div>
-
-      <img src="https://cdn.zt002.imgly.store/resource_html/rumi_clear.webp" id="face-base" />
-      <img src="https://cdn.zt002.imgly.store/resource_html/rumi_left_eye.webp" id="part-0" class="part" />
-      <img src="https://cdn.zt002.imgly.store/resource_html/rumi_right_eye.webp" id="part-1" class="part" />
-      <img src="https://cdn.zt002.imgly.store/resource_html/rumi_nose.webp" id="part-2" class="part" />
-      <img src="https://cdn.zt002.imgly.store/resource_html/rumi_mouth.webp" id="part-3" class="part" />
     </div>
 
-    <script>
-      const container = document.getElementById("ad-container");
-      const startScreen = document.getElementById("start-screen");
-      const endScreen = document.getElementById("end-screen");
-      const guide = document.getElementById("guide");
+    <div id="end-screen" class="overlay" style="display: none">
+      <div id="fireworks-container"></div>
+      <h2>XUẤT SẮC! ✨</h2>
+      <button class="btn-cta" style="margin-bottom: 64px;" onclick="location.reload()">CHƠI LẠI</button>
+    </div>
 
-      const gameSound = new Audio("https://cdn.zt002.imgly.store/resource_html/game_sound.mp3");
-      const endSound = new Audio("https://cdn.zt002.imgly.store/resource_html/yeah.mp3");
-      gameSound.loop = true;
+    <img src="https://cdn.zt002.imgly.store/resource_html/rumi_clear.webp" id="face-base" />
+    <img src="https://cdn.zt002.imgly.store/resource_html/rumi_left_eye.webp" id="part-0" class="part" />
+    <img src="https://cdn.zt002.imgly.store/resource_html/rumi_right_eye.webp" id="part-1" class="part" />
+    <img src="https://cdn.zt002.imgly.store/resource_html/rumi_nose.webp" id="part-2" class="part" />
+    <img src="https://cdn.zt002.imgly.store/resource_html/rumi_mouth.webp" id="part-3" class="part" />
+  </div>
 
-      const parts = [
-        { el: document.getElementById("part-0"), x: "41%" },
-        { el: document.getElementById("part-1"), x: "58%" },
-        { el: document.getElementById("part-2"), x: "50%" },
-        { el: document.getElementById("part-3"), x: "50%" },
-      ];
+  <script>
+    const container = document.getElementById("ad-container");
+    const startScreen = document.getElementById("start-screen");
+    const endScreen = document.getElementById("end-screen");
+    const guide = document.getElementById("guide");
 
-      let currentIdx = -1;
-      let isFalling = false;
-      let posY = -100;
-      let animationFrame;
-      let speed = 3;
+    const gameSound = new Audio("https://cdn.zt002.imgly.store/resource_html/game_sound.mp3");
+    const endSound = new Audio("https://cdn.zt002.imgly.store/resource_html/yeah.mp3");
+    gameSound.loop = true;
 
-      const startLottie = lottie.loadAnimation({
-        container: document.getElementById('start-lottie'),
+    const parts = [
+      { el: document.getElementById("part-0"), x: "41%" },
+      { el: document.getElementById("part-1"), x: "58%" },
+      { el: document.getElementById("part-2"), x: "50%" },
+      { el: document.getElementById("part-3"), x: "50%" },
+    ];
+
+    let currentIdx = -1;
+    let isFalling = false;
+    let posY = -100;
+    let animationFrame;
+    let speed = 3;
+
+    const startLottie = lottie.loadAnimation({
+      container: document.getElementById('start-lottie'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: 'https://cdn.zt002.imgly.store/resource_html/tap.json'
+    });
+
+    function playFireworks() {
+      lottie.loadAnimation({
+        container: document.getElementById('fireworks-container'),
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: 'https://cdn.zt002.imgly.store/resource_html/tap.json' 
+        path: 'https://assets9.lottiefiles.com/packages/lf20_myejioos.json'
       });
+    }
 
-      function playFireworks() {
-        lottie.loadAnimation({
-          container: document.getElementById('fireworks-container'),
-          renderer: 'svg',
-          loop: true,
-          autoplay: true,
-          path: 'https://assets9.lottiefiles.com/packages/lf20_myejioos.json'
-        });
+    container.addEventListener("click", (e) => {
+      // Tránh bị click đè khi đang ở màn hình kết thúc và muốn ấn nút chơi lại
+      if (endScreen.style.display === "flex") {
+        return;
       }
 
-      container.addEventListener("click", (e) => {
-        // Tránh bị click đè khi đang ở màn hình kết thúc và muốn ấn nút chơi lại
-        if (endScreen.style.display === "flex") {
-          return;
-        }
-
-        if (currentIdx === -1) {
-          startScreen.style.display = "none";
-          gameSound.play().catch(e => console.log("Audio play deferred"));
-          guide.innerText = "CHẠM ĐỂ DỪNG!";
+      if (currentIdx === -1) {
+        startScreen.style.display = "none";
+        gameSound.play().catch(e => console.log("Audio play deferred"));
+        guide.innerText = "CHẠM ĐỂ DỪNG!";
+        startNextPart();
+      } else if (isFalling) {
+        stopFalling();
+        if (currentIdx < parts.length - 1) {
           startNextPart();
-        } else if (isFalling) {
-          stopFalling();
-          if (currentIdx < parts.length - 1) {
-            startNextPart();
-          } else {
-            guide.style.display = "none";
-            endScreen.style.display = "flex";
-            endSound.play();
-            playFireworks();
-          }
+        } else {
+          guide.style.display = "none";
+          endScreen.style.display = "flex";
+          endSound.play();
+          playFireworks();
         }
-      });
-
-      function startNextPart() {
-        currentIdx++;
-        posY = 0;
-        isFalling = true;
-        const partObj = parts[currentIdx];
-        partObj.el.style.display = "block";
-        partObj.el.style.left = partObj.x;
-        animate();
       }
+    });
 
-      function animate() {
-        if (!isFalling) return;
-        posY += speed;
-        if (posY > container.clientHeight) posY = 0;
-        parts[currentIdx].el.style.top = posY + "px";
-        animationFrame = requestAnimationFrame(animate);
-      }
+    function startNextPart() {
+      currentIdx++;
+      posY = 0;
+      isFalling = true;
+      const partObj = parts[currentIdx];
+      partObj.el.style.display = "block";
+      partObj.el.style.left = partObj.x;
+      animate();
+    }
 
-      function stopFalling() {
-        isFalling = false;
-        cancelAnimationFrame(animationFrame);
-      }
-    </script>
-  </body>
+    function animate() {
+      if (!isFalling) return;
+      posY += speed;
+      if (posY > container.clientHeight) posY = 0;
+      parts[currentIdx].el.style.top = posY + "px";
+      animationFrame = requestAnimationFrame(animate);
+    }
+
+    function stopFalling() {
+      isFalling = false;
+      cancelAnimationFrame(animationFrame);
+    }
+  </script>
+</body>
+
 </html>
