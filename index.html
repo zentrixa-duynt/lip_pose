@@ -43,14 +43,16 @@
       }
 
       #face-base {
-        width: 100%;
-        height: auto;
-        position: absolute;
-        bottom: 10%;
-        left: 0;
-        z-index: 1;
-        pointer-events: none;
-      }
+  width: 100%;
+  height: auto;
+  position: absolute;
+  /* Căn giữa tuyệt đối */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+}
 
       .part {
         position: absolute;
@@ -280,7 +282,7 @@
 
       function startNextPart() {
         currentIdx++;
-        posY = -100;
+        posY = 0;
         isFalling = true;
         const partObj = parts[currentIdx];
         partObj.el.style.display = "block";
@@ -291,7 +293,7 @@
       function animate() {
         if (!isFalling) return;
         posY += speed;
-        if (posY > container.clientHeight) posY = -100;
+        if (posY > container.clientHeight) posY = 0;
         parts[currentIdx].el.style.top = posY + "px";
         animationFrame = requestAnimationFrame(animate);
       }
