@@ -12,7 +12,11 @@
     :root {
       --bg-color: #000;
     }
-
+* {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      outline: none;
+    }
     body {
       margin: 0;
       padding: 0;
@@ -212,22 +216,22 @@
 
 <body>
   <div id="ad-container">
-    <div id="guide" class="guide-text">CHẠM ĐỂ BẮT ĐẦU</div>
+    <div id="guide" class="guide-text">CLICK TO START</div>
 
     <div id="start-screen" class="overlay">
       <h1>FACE PUZZLE</h1>
-      <p>Ghép khuôn mặt Rumi hoàn hảo!</p>
+      <p>LET"S SOLVE FACE PUZZLE!</p>
 
       <div class="tap-to-play-group">
         <div id="start-lottie"></div>
-        <p class="tap-text">CHẠM ĐỂ CHƠI</p>
+        <p class="tap-text">CLICK TO PLAY</p>
       </div>
     </div>
 
     <div id="end-screen" class="overlay" style="display: none">
       <div id="fireworks-container"></div>
       <h2>XUẤT SẮC! ✨</h2>
-      <button class="btn-cta" style="margin-bottom: 64px;" onclick="location.reload()">CHƠI LẠI</button>
+      <button class="btn-cta" style="margin-bottom: 64px;" onclick="location.reload()">RETRY!</button>
     </div>
 
     <img src="https://cdn.zt002.imgly.store/resource_html/rumi_clear.webp" id="face-base" />
@@ -287,7 +291,7 @@
       if (currentIdx === -1) {
         startScreen.style.display = "none";
         gameSound.play().catch(e => console.log("Audio play deferred"));
-        guide.innerText = "CHẠM ĐỂ DỪNG!";
+        guide.innerText = "CLICK TO STOP!!";
         startNextPart();
       } else if (isFalling) {
         stopFalling();
